@@ -7,6 +7,7 @@ import HealthDiagnosis from './Pages/Diagnosis/Diagnosis';
 import Doctors from './Pages/Doctors/Doctors';
 import Appointments from './Pages/Appointments/Appointments';
 import Contacts from './Pages/Contacts/Contacts';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/contact" element={<Contacts />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );
