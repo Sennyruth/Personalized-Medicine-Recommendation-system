@@ -9,6 +9,8 @@ import Appointments from './Pages/Appointments/Appointments';
 import Contacts from './Pages/Contacts/Contacts';
 import HealthDiagnosis from './Pages/Diagnosis/Diagnosis';
 import Footer from './components/Footer';
+import SignUp from './Pages/SignUp/SignUp';
+import SignIn from './Pages/SignIn/SignIn';
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
           <Route path="/appointments" element={<Appointments />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/contacts" element={<Contacts />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/signin" element={<SignIn />} />
         </Routes>
         <Footer />
       </div>
