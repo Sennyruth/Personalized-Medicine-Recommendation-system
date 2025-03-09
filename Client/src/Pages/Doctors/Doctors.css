@@ -1,0 +1,379 @@
+.doctors-page {
+  min-height: 100vh;
+}
+
+.doctors-hero {
+  background: linear-gradient(rgba(26, 54, 93, 0.9), rgba(26, 54, 93, 0.9)),
+              url('../../../public/doctors/hero-bg.jpg') center/cover no-repeat;
+  height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  padding: 0 1rem;
+}
+
+.doctors-hero-content h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  animation: fadeInDown 1s ease;
+}
+
+.doctors-hero-content p {
+  font-size: 1.25rem;
+  max-width: 600px;
+  margin: 0 auto;
+  opacity: 0.9;
+  animation: fadeInUp 1s ease;
+}
+
+.doctors-intro {
+  padding: 4rem 2rem;
+  background-color: #f7fafc;
+  text-align: center;
+}
+
+.doctors-intro-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.doctors-intro h2 {
+  color: #2d3748;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.doctors-intro p {
+  color: #4a5568;
+  line-height: 1.7;
+}
+
+.specialty-filter {
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  padding: 0 2rem;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.filter-btn {
+  padding: 0.5rem 1rem;
+  width: auto;
+  border: 2px solid #3182ce;
+  border-radius: 25px;
+  background: transparent;
+  color: #3182ce;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: #3182ce;
+  color: #ffffff;
+}
+
+.doctors-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.doctor-card {
+  background: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.doctor-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.doctor-image {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+}
+
+.doctor-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.doctor-card:hover .doctor-image img {
+  transform: scale(1.05);
+}
+
+.doctor-specialty {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.doctor-specialty svg {
+  font-size: 1.25rem;
+}
+
+.doctor-info {
+  padding: 2rem;
+}
+
+.doctor-info h3 {
+  color: #2d3748;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.experience {
+  color: #3182ce;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.education {
+  color: #4a5568;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.description {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.availability {
+  background: #f7fafc;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+}
+
+.availability h4 {
+  color: #2d3748;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.availability ul {
+  list-style: none;
+  padding: 0;
+}
+
+.availability li {
+  color: #4a5568;
+  font-size: 0.95rem;
+  margin-bottom: 0.5rem;
+}
+
+.doctor-contact {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  width: auto;
+  background: #f7fafc;
+  color: #3182ce;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.contact-link:hover {
+  background: #ebf8ff;
+  transform: translateY(-2px);
+}
+
+.book-btn {
+  grid-column: span 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  width: auto;
+  background: #3182ce;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.book-btn:hover {
+  background: #2c5282;
+  transform: translateY(-2px);
+  
+}
+
+.join-team {
+  background: linear-gradient(rgba(49, 130, 206, 0.9), rgba(49, 130, 206, 0.9)),
+              url('../../../public/doctors/join-bg.jpg') center/cover no-repeat;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: #ffffff;
+}
+
+.join-team-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.join-team h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.join-team p {
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.9;
+}
+
+.join-btn {
+  padding: 0.5rem 1rem;
+  width: auto;
+  background: #ffffff;
+  color: #3182ce;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.join-btn:hover {
+  background: #ebf8ff;
+  transform: translateY(-3px);
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .doctors-grid {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 768px) {
+  .doctors-hero-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .doctors-hero-content p {
+    font-size: 1.1rem;
+  }
+
+  .doctors-intro h2,
+  .join-team h2 {
+    font-size: 2rem;
+  }
+
+  .specialty-filter {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-btn {
+    width: 100%;
+  }
+
+  .doctor-contact {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-link,
+  .book-btn {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .doctors-hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .doctors-hero {
+    height: 30vh;.filter-btn {
+      padding: 0.5rem 1rem; /* Adjust padding as needed */
+      width: auto; /* Allow width to adjust based on content */
+    }
+    
+    .contact-link {
+      padding: 0.5rem; /* Adjust padding as needed */
+      width: auto; /* Allow width to adjust based on content */
+    }
+    
+    .book-btn {
+      padding: 0.5rem; /* Adjust padding as needed */
+      width: auto; /* Allow width to adjust based on content */
+    }
+    
+    .join-btn {
+      padding: 0.5rem 1rem; /* Adjust padding as needed */
+      width: auto; /* Allow width to adjust based on content */
+    }
+  }
+
+  .doctor-image {
+    height: 250px;
+  }
+
+  .doctor-info {
+    padding: 1.5rem;
+  }
+}

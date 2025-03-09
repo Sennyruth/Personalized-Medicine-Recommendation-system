@@ -1,0 +1,186 @@
+.hospital-header {
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+}
+
+.active-link {
+    font-weight: bold;
+    color: #db09ee !important; /* Ensure this color stands out */
+    text-decoration: underline;
+}
+
+.logo-section {
+    flex: 0 0 200px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+  
+.logo-section h1 {
+    color: #2c5282;
+    margin: 0;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+  
+.tagline {
+    color: #718096;
+    margin: 0;
+    font-size: 0.9rem;
+    text-align: left;
+    font-weight: 500;
+}
+
+.nav-menu {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    width: 100%;
+}
+  
+.nav-menu ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+  
+.nav-menu li {
+    padding: 10px 15px;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #4a5568;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    padding: 0.5rem;
+}
+  
+.nav-menu a:hover {
+    color: #2c5282;
+}
+
+.nav-menu a.active-link {
+    font-weight: bold;
+    color: #2c5282 !important; /* Ensure this color stands out */
+    text-decoration: underline;
+}
+
+.contact-info {
+    flex: 0 0 200px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.5rem;
+}
+  
+.emergency-contact {
+    text-align: right;
+}
+  
+.emergency-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #718096;
+}
+  
+.emergency-number {
+    color: #e53e3e;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+  
+.appointment-btn {
+    background-color: #2c5282;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+    min-width: 150px; 
+    font-size: 1rem;
+}
+  
+.appointment-btn:hover {
+    background-color: #2d3748;
+}
+
+@media (max-width: 1024px) {
+    .header-container {
+        padding: 0 1rem;
+    }
+
+    .logo-section,
+    .contact-info {
+        flex: 0 0 180px;
+    }
+
+    .nav-menu {
+        padding: 0 1rem;
+    }
+
+    .nav-menu ul {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+
+    .logo-section,
+    .contact-info {
+        flex: none;
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-menu {
+        width: 100%;
+        padding: 0;
+    }
+  
+    .nav-menu ul {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+  
+    .contact-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .emergency-contact {
+        text-align: center;
+    }
+}
