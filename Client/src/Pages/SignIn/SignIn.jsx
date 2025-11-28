@@ -35,7 +35,7 @@ const SignIn = () => {
                 pauseOnHover: true,
                 draggable: true,
                 progress: undefined,
-                style: { backgroundColor: "green", color: "white" }, 
+                style: { backgroundColor: "blue", color: "white" }, 
               }
             );
             setTimeout(() => navigate('/appointments'), 1500);

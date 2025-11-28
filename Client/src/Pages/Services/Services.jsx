@@ -1,10 +1,16 @@
-import React from 'react';
+
 import { FaHeartbeat, FaBrain, FaTooth, FaBone, FaAmbulance, FaStethoscope, FaEye, FaBabyCarriage, FaLungs } from 'react-icons/fa';
 import heroImage from '../../assets/services-hero.jpg';
 import ctaImage from '../../assets/cta-bg.jpg';
+import {useNavigate} from "react-router-dom";
 import './Services.css';
 
 const Services = () => {
+  const navigate = useNavigate()
+  const handleNavigate = () =>{
+    navigate('/appointments')
+    
+  }
   const services = [
     {
       id: 1,
@@ -113,7 +119,7 @@ const Services = () => {
           <h2>Need Medical Assistance?</h2>
           <p>Our team of medical professionals is here to help you 24/7</p>
           <div className="cta-buttons">
-            <button className="cta-btn primary">Book Appointment</button>
+            <button className="cta-btn primary" onClick={handleNavigate}>Book Appointment</button>
             <button className="cta-btn secondary">Emergency Call</button>
           </div>
         </div>

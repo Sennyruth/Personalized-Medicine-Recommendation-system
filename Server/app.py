@@ -5,7 +5,6 @@ import joblib
 import numpy as np
 import json
 import google.generativeai as genai
-import requests  
 from dotenv import load_dotenv
 
 # Initialize Flask app
@@ -21,14 +20,14 @@ if not GEMINI_API_KEY:
 # Configure Gemini AI API
 genai.configure(api_key=GEMINI_API_KEY)
 
-# Load trained medicine recommendation model
-MODEL_PATH = "medicine_recommendation_model.pkl"
-if os.path.exists(MODEL_PATH):
-    model = joblib.load(MODEL_PATH)
-    print("\u2705 Model loaded successfully!")
+# Load disease prediction model
+DISEASE_MODEL_PATH = "medicine_recommendation_model.pkl"
+if os.path.exists(DISEASE_MODEL_PATH):
+    disease_model = joblib.load(DISEASE_MODEL_PATH)
+    print("\u2705 Disease prediction model loaded successfully!")
 else:
-    model = None
-    print("\u274C Model file not found!")
+    disease_model = None
+    print("\u274C Disease model file not found!")
 
 # Load symptom index mapping
 SYMPTOM_INDEX_PATH = "symptom_index.json"
@@ -38,6 +37,16 @@ if os.path.exists(SYMPTOM_INDEX_PATH):
 else:
     symptom_index = {}
     print("\u274C symptom_index.json is missing or empty!")
+
+# Load disease-medicine mapping from medicine_index.json
+MEDICINE_INDEX_PATH = "medicine_index.json"
+if os.path.exists(MEDICINE_INDEX_PATH):
+    with open(MEDICINE_INDEX_PATH, "r") as file:
+        medicine_index = json.load(file)
+    print("\u2705 Medicine index loaded successfully!")
+else:
+    medicine_index = {}
+    print("\u274C medicine_index.json is missing or empty!")
 
 @app.route("/", methods=["GET"])
 def home():
@@ -56,7 +65,7 @@ def predict():
         if not symptom_index:
             return jsonify({"error": "Symptom index is missing. Check logs."}), 500
 
-        if model is None:
+        if disease_model is None:
             return jsonify({"error": "Model not loaded. Check logs."}), 500
 
         # Convert symptoms into input features
@@ -80,8 +89,8 @@ def predict():
         input_features = np.array(input_features).reshape(1, -1)
 
         # Get prediction probabilities
-        probs = model.predict_proba(input_features)[0]
-        predicted_disease = model.classes_[np.argmax(probs)]
+        probs = disease_model.predict_proba(input_features)[0]
+        predicted_disease = disease_model.classes_[np.argmax(probs)]
 
         print("Prediction Probabilities:", probs)
         print("Predicted Disease:", predicted_disease)
@@ -94,45 +103,45 @@ def predict():
     except Exception as e:
         print(f"\u274C Error in /predict: {e}")
         return jsonify({"error": "Internal server error while processing prediction."}), 500
+    
+# medicine recommendations
+@app.route("/recommend_medicine", methods=["POST"])
+def recommend_medicine():
+    """Fetch medicine recommendations from the medicine_index.json file."""
+    try:
+        data = request.get_json()
+        disease = data.get("disease", "").strip().lower()
 
-# @app.route("/recommend_medicine", methods=["POST"])
-# def recommend_medicine():
-#     """Fetch medicine recommendations from RxNorm API based on predicted disease."""
-#     try:
-#         data = request.get_json()
-#         disease = data.get("predicted_disease", "").strip()
+        if not disease:
+            return jsonify({"error": "No disease provided."}), 400
 
-#         if not disease:
-#             return jsonify({"error": "No disease provided."}), 400
+        if not medicine_index:
+            return jsonify({"error": "Medicine index is missing. Check logs."}), 500
 
-#         # RxNorm API Endpoint
-#         rxnorm_url = f"https://rxnav.nlm.nih.gov/REST/drugs.json?name={disease}"
-#         response = requests.get(rxnorm_url)
+       
+        normalized_medicine_index = {key.lower(): value for key, value in medicine_index.items()}
 
-#         if response.status_code != 200:
-#             return jsonify({"error": "Failed to fetch medicine data from RxNorm."}), 500
+    
+        print(f"Received disease: '{disease}'")
+        print("Available diseases:", list(normalized_medicine_index.keys()))
 
-#         data = response.json()
-#         medicines = []
+    
+        recommended_medicines = normalized_medicine_index.get(disease, [])
 
-#         # Extract medicine names from response
-#         if "drugGroup" in data and "conceptGroup" in data["drugGroup"]:
-#             for group in data["drugGroup"]["conceptGroup"]:
-#                 if "conceptProperties" in group:
-#                     medicines.extend([med["name"] for med in group["conceptProperties"]])
+        if not recommended_medicines:
+            print(f"❌ No medicines found for '{disease}'.")
+            return jsonify({"error": f"No medicines found for {disease}."}), 404
 
-#         if not medicines:
-#             return jsonify({"error": "No medicines found for this disease."}), 404
+        return jsonify({
+            "disease": disease,
+            "recommended_medicines": recommended_medicines
+        })
 
-#         return jsonify({
-#             "predicted_disease": disease,
-#             "recommended_medicines": medicines
-#         })
+    except Exception as e:
+        print(f"\u274C Error in /recommend_medicine: {e}")
+        return jsonify({"error": "Internal server error while fetching medicine recommendations."}), 500
 
-#     except Exception as e:
-#         print(f"\u274C Error in /recommend_medicine: {e}")
-#         return jsonify({"error": "Internal server error while fetching medicine recommendations."}), 500
-
+# chatbot intergration
 @app.route("/chat", methods=["POST"])
 def chat():
     """Handle chatbot responses using Gemini API."""
@@ -146,7 +155,6 @@ def chat():
         gemini_model = genai.GenerativeModel("gemini-1.5-pro")
         response = gemini_model.generate_content(user_message)
 
-        # Extract response text safely
         bot_response = response.text if hasattr(response, "text") else "I couldn't generate a response."
 
         return jsonify({"response": bot_response})

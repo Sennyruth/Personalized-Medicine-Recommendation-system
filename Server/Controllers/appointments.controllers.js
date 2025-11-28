@@ -4,6 +4,8 @@ import  {PrismaClient}  from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+// appointment booking
+
 export const CreateAppointment = async (req,res) => {
     const {name,email,phone,doctor, date, time, department, reason} = req.body;
     const userId = req.user.id;

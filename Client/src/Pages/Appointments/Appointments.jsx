@@ -43,7 +43,7 @@ const Appointments = () => {
       ...(name === 'department' ? { doctor: '' } : {}) 
     }));
   };
-
+// Fetching appointments API from the backend
   const handleSubmit = async(e) => {
     e.preventDefault();
     try {
@@ -66,7 +66,7 @@ const Appointments = () => {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            style: { backgroundColor: "green", color: "white" }, 
+            style: { backgroundColor: "blue", color: "white" }, 
           });
       } else {
         toast.error('Failed to book appointment.', {

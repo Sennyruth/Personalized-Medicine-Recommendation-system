@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { FaStethoscope, FaClipboardList, FaUserMd, FaHospital } from 'react-icons/fa';
+import { FaStethoscope, FaClipboardList, FaUserMd, FaHospital, FaPills } from 'react-icons/fa';
 import './Diagnosis.css';
 
 const Diagnosis = () => {
   const [formData, setFormData] = useState({ symptoms: '' });
   const [result, setResult] = useState(null);
-  // const [medicines, setMedicines] = useState([]); // Store recommended medicines
+  const [medicines, setMedicines] = useState([]); 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+   
 
   const handleChange = (e) => {
     setFormData({ symptoms: e.target.value });
@@ -18,7 +19,7 @@ const Diagnosis = () => {
     setLoading(true);
     setError('');
     setResult(null);
-    // setMedicines([]);
+    setMedicines([]);
 
     try {
       const response = await fetch('http://127.0.0.1:5000/predict', {
@@ -30,7 +31,9 @@ const Diagnosis = () => {
       const data = await response.json();
       if (response.ok) {
         setResult(data.predicted_disease);
-        // setMedicines(data.recommended_medicines || []);
+
+        // Fetch recommended medicines for the predicted disease
+        fetchMedicines(data.predicted_disease);
       } else {
         setError(data.error || 'Failed to get a response from the server.');
       }
@@ -38,6 +41,26 @@ const Diagnosis = () => {
       setError('Network error. Please try again.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Fetch medicines for the predicted disease
+  const fetchMedicines = async (disease) => {
+    try {
+      const response = await fetch('http://127.0.0.1:5000/recommend_medicine', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ disease }),
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setMedicines(data.recommended_medicines || []);
+      } else {
+        setError(data.error || 'Failed to retrieve medicine recommendations.');
+      }
+    } catch (err) {
+      setError('Error fetching medicine recommendations.');
     }
   };
 
@@ -70,7 +93,18 @@ const Diagnosis = () => {
         <div className="result">
           <h3>Predicted Disease:</h3>
           <p><strong>{result}</strong></p>
-          
+
+          {/* Display Medicines */}
+          {medicines.length > 0 && (
+            <div className="medicine-list">
+              <h3><FaPills /> Recommended Medicines:</h3>
+              <ul>
+                {medicines.map((med, index) => (
+                  <li key={index}>{med}</li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
 

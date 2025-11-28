@@ -70,7 +70,7 @@ function SignUp() {
             pauseOnHover: true,
             draggable: true,
             progress: undefined,
-            style: { backgroundColor: "green", color: "white" }, 
+            style: { backgroundColor: "blue", color: "white" }, 
           });
           
           setError(false);

@@ -1,4 +1,4 @@
-import React from 'react';
+
 import Hero from './Hero.jsx';
 import About from './About.jsx';
 import Testimonials from './Testimonials.jsx';

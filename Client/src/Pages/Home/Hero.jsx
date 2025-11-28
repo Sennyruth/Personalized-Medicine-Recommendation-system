@@ -1,7 +1,12 @@
 
 import './Home.css';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
+  const handleNavigate=()=>{
+    navigate("/appointments")
+  }
   return (
     <section className="hero">
       <div className="hero-container">
@@ -13,7 +18,7 @@ const Hero = () => {
             Providing exceptional healthcare services with compassion and expertise
           </p>
           <div className="hero-cta">
-            <button className="primary-button">Book Appointment</button>
+            <button className="primary-button" onClick={handleNavigate}>Book Appointment</button>
             <button className="secondary-button">Learn More</button>
           </div>
         </div>
